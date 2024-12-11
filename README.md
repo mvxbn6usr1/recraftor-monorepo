@@ -102,3 +102,98 @@ Required variables for Recraftor:
    - Create `.env.production` with production credentials
    - Follow security best practices for credential management
    - Deploy using production configuration 
+
+## Installation
+
+Choose the appropriate installation method for your environment:
+
+### Linux
+```bash
+# Download and run the setup script
+curl -o- https://raw.githubusercontent.com/mvxbn6usr1/recraftor-monorepo/main/scripts/setup-linux.sh | bash
+```
+
+### macOS
+```bash
+# Download and run the setup script
+curl -o- https://raw.githubusercontent.com/mvxbn6usr1/recraftor-monorepo/main/scripts/setup-macos.sh | bash
+```
+
+### Replit
+1. Create a new Repl and import from GitHub
+2. Select the recraftor-monorepo repository
+3. Run the setup script:
+```bash
+bash scripts/setup-replit.sh
+```
+
+### Manual Installation
+If you prefer to install manually or if the automated scripts don't work:
+
+1. **System Requirements**
+   - Node.js 18.x
+   - pnpm
+   - OpenSSL 1.1.x
+   - SQLite
+
+2. **Install Dependencies**
+   ```bash
+   # Install pnpm
+   curl -fsSL https://get.pnpm.io/install.sh | sh -
+
+   # Install project dependencies
+   pnpm install
+   ```
+
+3. **Environment Setup**
+   ```bash
+   # Copy environment files
+   cp apps/portal/.env.example apps/portal/.env
+   cp apps/recraftor/.env.example apps/recraftor/.env
+   ```
+
+4. **Database Setup**
+   ```bash
+   # Generate Prisma client
+   cd apps/portal && npx prisma generate
+   ```
+
+5. **Build and Run**
+   ```bash
+   # Build all packages
+   pnpm build
+
+   # Start development servers
+   pnpm dev
+   ```
+
+### Troubleshooting
+
+#### OpenSSL Issues
+If you encounter OpenSSL-related errors:
+
+**Ubuntu/Debian:**
+```bash
+echo "deb http://security.ubuntu.com/ubuntu focal-security main" | sudo tee /etc/apt/sources.list.d/focal-security.list
+sudo apt update
+sudo apt install libssl1.1
+```
+
+**macOS:**
+```bash
+brew install openssl@1.1
+brew link openssl@1.1 --force
+```
+
+**Replit:**
+The Replit setup script automatically configures OpenSSL through Nix.
+
+#### Prisma Client Issues
+If Prisma client generation fails:
+```bash
+cd apps/portal
+rm -rf node_modules/.prisma
+npx prisma generate
+```
+
+For more detailed troubleshooting, see [docs/troubleshooting-prisma.md](docs/troubleshooting-prisma.md) 
