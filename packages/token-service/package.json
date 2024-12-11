@@ -1,0 +1,32 @@
+{
+  "name": "@recraftor/token-service",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "prisma generate && tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push --skip-generate",
+    "db:studio": "prisma studio"
+  },
+  "dependencies": {
+    "@recraftor/shared": "workspace:*",
+    "@prisma/client": "latest",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "tsup": "^7.0.0",
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0",
+    "prisma": "latest",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0"
+  }
+} 
