@@ -1,158 +1,267 @@
-# Recraft Dashboard
+# Recraftor Application
 
-A powerful web application for AI image generation, vectorization, and management with an intuitive user interface.
+Internal Vite-based application for AI image generation and manipulation.
 
-## Features
+## Overview
 
-### Image Generation
-- Generate images using state-of-the-art AI models
-- Custom style presets for consistent results
-- Real-time progress tracking
-- Adjustable parameters for fine-tuned control
-- Persistent settings across sessions
+Recraftor provides:
+- AI image generation with multiple styles
+- Image vectorization and processing
+- Background removal and upscaling
+- Style creation and management
+- Token-based operation system
+- Portal integration
 
-### Image Management
-- Modern gallery interface with image previews
-- Download functionality for generated images
-- Image metadata viewing and management
-- Prompt and settings reuse functionality
-- Efficient image storage using IndexedDB
+## Development
 
-### Image Processing
-- Image vectorization capabilities
-- Custom style application
-- Batch processing support
-- Progress tracking for all operations
+```bash
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev
+
+# Build for production
+pnpm build
+
+# Preview production build
+pnpm preview
+```
+
+## Architecture
+
+### Core Components
+
+#### UI Layer
+- `src/components/` - React components
+  - `ui/` - Base UI components
+    - `image-modal.tsx` - Image preview and actions
+    - `color-picker.tsx` - RGB color selection
+    - `card.tsx` - Card layout components
+    - `dialog.tsx` - Modal dialogs
+    - `menubar.tsx` - Navigation menus
+    - `tabs.tsx` - Tab panels
+    - `resizable.tsx` - Resizable panels
+    - `accordion.tsx` - Collapsible sections
+  - `gallery/` - Image management
+    - `ImageGallery.tsx` - Image grid display
+    - `ImageMetadata.tsx` - Image information
+  - `sidebars/` - Tool controls
+    - `GenerateSidebar.tsx` - Generation options
+  - `modals/` - Modal components
+    - `ResponsiveImageModal.tsx` - Responsive image viewer
+  - `mobile/` - Mobile-specific components
+    - `MobileLayout.tsx` - Mobile layout wrapper
+    - `MobileHeader.tsx` - Mobile header
+    - `MobileToolbar.tsx` - Mobile tool selection
+
+#### Business Logic
+- `src/hooks/` - Custom React hooks
+  - `use-image-management.ts` - Image operations
+  - `use-media-query.ts` - Responsive design
+  - `use-resize-observer.ts` - Layout management
+
+#### Core Utilities
+- `src/lib/` - Core utilities
+  - `recraft.ts` - API integration
+  - `api-config.ts` - API configuration
+  - `image-storage.ts` - Local storage
+  - `image-cache.ts` - Image caching
+  - `utils/` - Utility functions
+
+#### Type Definitions
+- `src/types/` - TypeScript definitions
+  - `recraft.ts` - API types
+  - `image.ts` - Image types
+  - `style.ts` - Style types
+
+### Image Operations
+
+#### Generation
+- Raster images
+- Vector illustrations
+- Digital art
+- Icons
+
+#### Processing
+- Vectorization
+- Background removal
+- Clarity upscale
+- Generative upscale
+
+#### Style Management
+- Style creation
+- Style application
+- Custom style storage
+- Style metadata
 
 ### User Interface
-- Clean, modern design with dark mode
-- Responsive layout
-- Intuitive sidebar navigation
-- Modal-based image viewing and actions
-- Smooth animations and transitions
 
-## Technology Stack
+#### Layout System
+- Responsive design
+- Mobile-first approach
+- Resizable panels
+- Adaptive layouts
 
-- **Frontend Framework**: React with TypeScript
-- **Styling**: Tailwind CSS
-- **UI Components**: 
-  - Radix UI for accessible components
-  - Lucide React for icons
-  - Shadcn/ui for styled components
-- **State Management**: React Context API
-- **Storage**: IndexedDB for image data
-- **Build Tool**: Vite
-- **Package Manager**: npm
+#### Component Library
+- Accessible components
+- Keyboard navigation
+- Screen reader support
+- Touch interactions
 
-## Getting Started
+#### Interaction Patterns
+- Drag and drop
+- Context menus
+- Tool selection
+- Image manipulation
 
-### Prerequisites
-- Node.js (v16 or higher)
-- npm (v7 or higher)
+### Portal Integration
 
-### Installation
+#### Communication
+- PostMessage protocol
+- Origin validation
+- Error handling
+- State synchronization
 
-1. Clone the repository:
+#### Token System
+1. Token Check
+   ```typescript
+   await window.requestTokenOperation('check_balance', {
+     operation: 'raster_generation'
+   });
+   ```
+
+2. Token Deduction
+   ```typescript
+   await window.requestTokenOperation('deduct_tokens', {
+     operation: 'vector_generation',
+     metadata: { /* operation details */ }
+   });
+   ```
+
+### Data Management
+
+#### Image Storage
+- IndexedDB for persistence
+- Blob storage for images
+- Metadata management
+- Transaction support
+
+#### Image Cache
+- In-memory caching
+- URL object management
+- Size limits
+- Automatic cleanup
+
+### Security Features
+
+- Origin validation
+- Parent verification
+- Message validation
+- Token authorization
+- Input sanitization
+
+## Environment Setup
+
+Required variables in `.env`:
 ```bash
-git clone https://github.com/yourusername/recraft-dashboard.git
-cd recraft-dashboard
+# Portal Integration
+VITE_PORTAL_URL="http://localhost:3000"
+
+# Environment
+VITE_ENV="development"
 ```
 
-2. Install dependencies:
-```bash
-npm install
-```
+## Error Handling
 
-3. Start the development server:
-```bash
-npm run dev
-```
+1. API Errors
+   - Token validation
+   - Operation limits
+   - Input validation
+   - Network issues
 
-The application will be available at `http://localhost:5173`
+2. Portal Communication
+   - Message validation
+   - Origin verification
+   - Response timeout
+   - State recovery
 
-### Building for Production
+3. Image Processing
+   - Format validation
+   - Size limits
+   - Processing errors
+   - Upload failures
 
-To create a production build:
-```bash
-npm run build
-```
+## Performance Optimization
 
-The built files will be in the `dist` directory.
+- Image lazy loading
+- Virtual scrolling
+- Debounced operations
+- Cache management
+- Memory cleanup
+- URL object lifecycle
+- Blob management
 
-## Project Structure
+## Deployment
 
-```
-recraft-dashboard/
-├── src/
-│   ├── components/         # React components
-│   │   ├── ui/            # Reusable UI components
-│   │   └── sidebars/      # Sidebar components
-│   ├── lib/               # Utility functions and services
-│   ├── styles/            # Global styles
-│   ├── App.tsx           # Main application component
-│   └── main.tsx          # Application entry point
-├── public/               # Static assets
-├── index.html           # HTML template
-├── tailwind.config.js   # Tailwind configuration
-├── tsconfig.json        # TypeScript configuration
-└── vite.config.ts       # Vite configuration
-```
+1. Build the application:
+   ```bash
+   pnpm build
+   ```
 
-## Key Components
+2. Configure environment:
+   - Set production portal URL
+   - Configure CORS settings
+   - Set up error tracking
 
-### Image Storage
-The application uses IndexedDB for efficient image storage, handling both binary data and metadata. This enables fast retrieval and persistent storage of generated images.
+3. Deploy static files:
+   - Serve from CDN
+   - Configure caching
+   - Set security headers
 
-### Style Management
-Custom styles are managed through a dedicated system that allows for:
-- Preset style selection
-- Custom style parameters
-- Style persistence across sessions
+## Monitoring
 
-### User Interface
-The UI is built with accessibility and user experience in mind:
-- Responsive design that works across different screen sizes
-- Keyboard navigation support
-- Clear visual feedback for actions
-- Consistent styling throughout the application
+Key metrics to track:
+1. Operation Performance
+   - Generation time
+   - Processing speed
+   - Error rates
+   - Success rates
 
-## Development Guidelines
+2. User Experience
+   - Load times
+   - Response times
+   - Error feedback
+   - UI interactions
 
-### Code Style
-- Use TypeScript for type safety
-- Follow React best practices and hooks guidelines
-- Maintain consistent component structure
-- Use meaningful variable and function names
-- Include appropriate error handling
+3. Resource Usage
+   - Memory usage
+   - Network calls
+   - Cache hits
+   - Token usage
+   - Blob storage
+   - IndexedDB usage
 
-### State Management
-- Use React Context for global state
-- Implement proper loading states
-- Handle errors gracefully
-- Maintain consistent state updates
+## Troubleshooting
 
-### Performance Considerations
-- Optimize image loading and processing
-- Implement proper caching strategies
-- Use lazy loading where appropriate
-- Monitor and optimize bundle size
+Common issues:
 
-## Contributing
+1. Portal Communication
+   - Check origin configuration
+   - Verify message format
+   - Check token requests
+   - Validate responses
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Image Operations
+   - Validate input formats
+   - Check token balance
+   - Verify API responses
+   - Check error logs
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Built with [React](https://reactjs.org/)
-- Styled with [Tailwind CSS](https://tailwindcss.com/)
-- UI Components from [Radix UI](https://www.radix-ui.com/)
-- Icons from [Lucide](https://lucide.dev/)
-- Component styling from [shadcn/ui](https://ui.shadcn.com/)
+3. Performance Issues
+   - Monitor image caching
+   - Check memory usage
+   - Verify lazy loading
+   - Analyze network calls
+   - Check blob lifecycle
+   - Verify URL cleanup
