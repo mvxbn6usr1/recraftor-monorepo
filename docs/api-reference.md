@@ -230,19 +230,25 @@ response_format: "url"
 
 ```http
 POST /recraft/styles
+Content-Type: multipart/form-data
 ```
 
-Creates a custom style.
+Creates a custom style using up to 5 reference images.
 
 **Request Body**
-```json
-{
-  "style": "realistic_image",
-  "prompt": "Style description",
-  "negative_prompt": "Things to avoid",
-  "seed": 12345
-}
 ```
+style: "realistic_image" | "digital_illustration" | "vector_illustration" | "icon" | "any"
+files[]: <image_file_1>
+files[]: <image_file_2>
+...
+files[]: <image_file_5> (optional)
+```
+
+**Requirements**
+- File format: PNG only
+- Number of files: Minimum 1, maximum 5 images
+- Each file must be a valid PNG image
+- Style parameter must be one of the allowed values
 
 **Response**
 ```json
@@ -251,6 +257,8 @@ Creates a custom style.
   "created": 1704067200
 }
 ```
+
+Note: Upload between 1-5 images to create a custom style. The style ID can then be used in generation requests.
 
 ## Error Handling
 
